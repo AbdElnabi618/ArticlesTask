@@ -8,7 +8,13 @@
     <fragment
         android:id="@+id/splashFragment"
         android:name="com.abdelnabi618.articlestask.ui.fragments.splash.SplashFragment"
-        android:label="SplashFragment" />
+        android:label="SplashFragment" >
+        <action
+            android:id="@+id/action_splashFragment_to_articlesListFragment"
+            app:destination="@id/articlesListFragment"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/splashFragment"/>
+    </fragment>
 
     <fragment
         android:id="@+id/articlesListFragment"

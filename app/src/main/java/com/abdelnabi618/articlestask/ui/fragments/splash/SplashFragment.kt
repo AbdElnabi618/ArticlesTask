@@ -31,7 +31,7 @@ class SplashFragment : Fragment() {
 
         lifecycleScope.launchWhenResumed {
             delay(2000L)
-
+            findNavController().navigate(SplashFragmentDirections.actionSplashFragmentToArticlesListFragment())
         }
     }
 }
