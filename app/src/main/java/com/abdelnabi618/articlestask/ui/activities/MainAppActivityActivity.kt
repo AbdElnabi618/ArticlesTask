@@ -1,7 +1,8 @@
-package com.abdelnabi618.articlestask
+package com.abdelnabi618.articlestask.ui.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.abdelnabi618.articlestask.R
 
 class MainAppActivityActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
