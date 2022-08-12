@@ -6,4 +6,6 @@ object Constants {
     const val DATABASE_VERSION = 1
 
     const val ARTICLES_TABLE_NAME = "Articles"
+
+    const val BASE_URL = "https://dummyjson.com/"
 }
