@@ -7,7 +7,7 @@ import com.abdelnabi618.articlestask.model.ArticlesModel
 import com.abdelnabi618.articlestask.utils.Constants.DATABASE_VERSION
 import com.abdelnabi618.articlestask.utils.ListToStringConverters
 
-@Database(entities = [ArticlesModel::class], version = DATABASE_VERSION)
+@Database(entities = [ArticlesModel::class], version = DATABASE_VERSION, exportSchema = false)
 @TypeConverters(ListToStringConverters::class)
 abstract class ArticlesDatabase : RoomDatabase() {
     abstract fun getArticlesDao(): ArticlesDao

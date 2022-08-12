@@ -4,10 +4,13 @@ package com.abdelnabi618.articlestask.model
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import androidx.room.TypeConverters
 import com.abdelnabi618.articlestask.utils.Constants.ARTICLES_TABLE_NAME
+import com.abdelnabi618.articlestask.utils.ListToStringConverters
 import com.google.gson.annotations.SerializedName
 
 @Entity(tableName = ARTICLES_TABLE_NAME)
+@TypeConverters(ListToStringConverters::class)
 data class ArticlesModel(
     @ColumnInfo(name = "body")
     @SerializedName("body")
