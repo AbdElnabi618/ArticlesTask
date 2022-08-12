@@ -1,4 +1,4 @@
-package com.abdelnabi618
+package com.abdelnabi618.articlestask
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
