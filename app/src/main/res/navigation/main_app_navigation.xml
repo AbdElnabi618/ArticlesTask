@@ -9,4 +9,9 @@
         android:id="@+id/splashFragment"
         android:name="com.abdelnabi618.articlestask.ui.fragments.splash.SplashFragment"
         android:label="SplashFragment" />
+
+    <fragment
+        android:id="@+id/articlesListFragment"
+        android:name="com.abdelnabi618.articlestask.ui.fragments.articles_list.ArticlesListFragment"
+        android:label="ArticlesListFragment" />
 </navigation>
