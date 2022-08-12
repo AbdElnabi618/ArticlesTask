@@ -4,9 +4,10 @@ package com.abdelnabi618.articlestask.model
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.abdelnabi618.articlestask.utils.Constants.ARTICLES_TABLE_NAME
 import com.google.gson.annotations.SerializedName
 
-@Entity(tableName = "Articles")
+@Entity(tableName = ARTICLES_TABLE_NAME)
 data class ArticlesModel(
     @ColumnInfo(name = "body")
     @SerializedName("body")
