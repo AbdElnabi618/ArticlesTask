@@ -11,7 +11,7 @@ import com.abdelnabi618.articlestask.utils.Constants.ARTICLES_TABLE_NAME
 @Dao
 interface ArticlesDao {
 
-    @Query("SELECT * FROM $ARTICLES_TABLE_NAME")
+    @Query("SELECT * FROM $ARTICLES_TABLE_NAME ORDER BY databaseId")
     fun getAllArticles(): PagingSource<Int, ArticlesModel>
 
     @Query("SELECT * FROM $ARTICLES_TABLE_NAME WHERE apiId=:id LIMIT 1")
