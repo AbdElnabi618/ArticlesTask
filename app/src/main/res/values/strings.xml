@@ -4,4 +4,5 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string name="bind_user_id" translatable="false">%d: </string>
+    <string name="popular_articles">Popular Articles</string>
 </resources>
