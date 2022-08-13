@@ -42,11 +42,15 @@ class ArticlesAdapter(private var itemClicked: OnItemClick? = null) :
 
     object ArticlesComparator : DiffUtil.ItemCallback<ArticlesModel>() {
         override fun areItemsTheSame(oldItem: ArticlesModel, newItem: ArticlesModel): Boolean {
-            return oldItem.id == newItem.id
+            return oldItem.apiId == newItem.apiId
         }
 
         override fun areContentsTheSame(oldItem: ArticlesModel, newItem: ArticlesModel): Boolean {
             return oldItem == newItem
         }
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return position
     }
 }
