@@ -26,7 +26,7 @@
             android:layout_margin="8dp"
             android:ellipsize="end"
             android:maxLines="2"
-            android:text="@{@string/bind_user_id(articleModel.userId)}"
+            android:text="@{@string/bind_user_id(articleModel.apiId, articleModel.userId)}"
             android:textColor="@color/black"
             android:textSize="14sp"
             android:textStyle="bold"
