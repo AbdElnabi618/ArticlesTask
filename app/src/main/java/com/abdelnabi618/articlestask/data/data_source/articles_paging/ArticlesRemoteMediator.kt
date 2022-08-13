@@ -10,6 +10,7 @@ import com.abdelnabi618.articlestask.data.local.room.ArticlesDatabase
 import com.abdelnabi618.articlestask.model.ArticlesModel
 import com.abdelnabi618.articlestask.utils.Constants.DATA_LIMIT
 import com.abdelnabi618.articlestask.utils.Constants.DATA_SKIP_INIT
+import com.abdelnabi618.articlestask.utils.listOfNetworkArticlesToEntity
 import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject
@@ -62,11 +63,11 @@ class ArticlesRemoteMediator @Inject constructor(
                         articlesDao.deleteAllCashedArticles()
                     }
 
-                    articlesDao.insertAll(articlesResponse.posts)
+                    articlesDao.insertAll(listOfNetworkArticlesToEntity(articlesResponse.posts))
                 }
             }
 
-            MediatorResult.Success(endOfPaginationReached = response.body()!!.posts.last().id >= response.body()!!.total)
+            MediatorResult.Success(endOfPaginationReached = response.body()!!.posts.last().apiId >= response.body()!!.total)
         } catch (e: IOException) {
             MediatorResult.Error(e)
         } catch (e: HttpException) {

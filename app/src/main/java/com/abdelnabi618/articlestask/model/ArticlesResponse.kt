@@ -7,7 +7,7 @@ data class ArticlesResponse(
     @SerializedName("limit")
     val limit: Int,
     @SerializedName("posts")
-    val posts: List<ArticlesModel>,
+    val posts: List<ArticlesNetworkModel>,
     @SerializedName("skip")
     val skip: String,
     @SerializedName("total")
