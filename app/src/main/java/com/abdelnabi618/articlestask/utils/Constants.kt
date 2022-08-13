@@ -8,4 +8,9 @@ object Constants {
     const val ARTICLES_TABLE_NAME = "Articles"
 
     const val BASE_URL = "https://dummyjson.com/"
+
+
+    const val DATA_LIMIT = 10
+
+    const val DATA_SKIP_INIT = 0
 }
