@@ -78,6 +78,8 @@ dependencies {
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1'
 
     // http LoggingInterceptor
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.4.1'
+    implementation('com.github.ihsanbal:LoggingInterceptor:3.1.0') {
+        exclude group: 'org.json', module: 'json'
+    }
 
 }

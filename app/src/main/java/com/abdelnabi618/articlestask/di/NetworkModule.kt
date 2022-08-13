@@ -1,15 +1,15 @@
 package com.abdelnabi618.articlestask.di
 
 import com.abdelnabi618.articlestask.BuildConfig
-import com.abdelnabi618.articlestask.data.remote.ArticlesApiCall
 import com.abdelnabi618.articlestask.utils.Constants.BASE_URL
 import com.google.gson.GsonBuilder
+import com.ihsanbal.logging.Level
+import com.ihsanbal.logging.LoggingInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
@@ -22,9 +22,13 @@ class NetworkModule {
     @Provides
     @Singleton
     fun provideOkHttpClient(): OkHttpClient = if (BuildConfig.DEBUG) {
-        val interceptor = HttpLoggingInterceptor()
-        interceptor.level = HttpLoggingInterceptor.Level.BODY
-        OkHttpClient.Builder().addInterceptor(interceptor).build()
+        OkHttpClient.Builder().addInterceptor(
+            LoggingInterceptor.Builder()
+                .setLevel(Level.BASIC)
+                .addHeader("Content-Type", "application/json")
+                .addHeader("Accept", "application/json")
+                .build()
+        ).build()
     } else {
         OkHttpClient.Builder().build()
     }
