@@ -1,7 +1,9 @@
 package com.abdelnabi618.articlestask.data.local.room
 
+import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.abdelnabi618.articlestask.model.ArticlesModel
 import com.abdelnabi618.articlestask.utils.Constants.ARTICLES_TABLE_NAME
@@ -10,9 +12,13 @@ import com.abdelnabi618.articlestask.utils.Constants.ARTICLES_TABLE_NAME
 interface ArticlesDao {
 
     @Query("SELECT * FROM $ARTICLES_TABLE_NAME")
-    suspend fun getAllArticles(): List<ArticlesModel>
+    fun getAllArticles(): PagingSource<Int, ArticlesModel>
 
-    @Insert
+    @Query("SELECT * FROM $ARTICLES_TABLE_NAME WHERE apiId=:id LIMIT 1")
+    suspend fun getArticle(id: Int): ArticlesModel
+
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(articles: List<ArticlesModel>)
 
     @Query("DELETE FROM $ARTICLES_TABLE_NAME")
