@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <solid
+         android:color="@color/primer_babe_blue_10_opacity"/>
+    <corners
+        android:radius="4dp"
+        />
+
+</shape>
