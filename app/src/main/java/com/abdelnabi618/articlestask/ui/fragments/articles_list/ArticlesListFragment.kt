@@ -9,6 +9,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.abdelnabi618.articlestask.databinding.FragmentArticlesListBinding
@@ -58,27 +59,15 @@ class ArticlesListFragment : Fragment(), ArticlesAdapter.OnItemClick {
     private fun observeData() {
 
         articlesAdapter.addLoadStateListener { loadState ->
-            // show empty list
-            if (loadState.refresh is LoadState.Loading) {
-                articlesListBinding.articlesCenterLoadingPb.isVisible = true
-                articlesListBinding.articlesFooterLoadingPb.isVisible = false
-            } else if (loadState.append is LoadState.Loading) {
-                articlesListBinding.articlesCenterLoadingPb.isVisible = false
-                articlesListBinding.articlesFooterLoadingPb.isVisible = true
-            } else {
-                articlesListBinding.articlesCenterLoadingPb.isVisible = false
-                articlesListBinding.articlesFooterLoadingPb.isVisible = false
-                // If we have an error, show a toast
-                val errorState = when {
-                    loadState.append is LoadState.Error -> loadState.append as LoadState.Error
-                    loadState.prepend is LoadState.Error -> loadState.prepend as LoadState.Error
-                    loadState.refresh is LoadState.Error -> loadState.refresh as LoadState.Error
-                    else -> null
-                }
-                errorState?.let {
-                    Toast.makeText(requireContext(), it.error.toString(), Toast.LENGTH_LONG).show()
-                }
 
+            articlesListBinding.articlesCenterLoadingPb.isVisible =
+                loadState.refresh is LoadState.Loading
+            articlesListBinding.articlesFooterLoadingPb.isVisible =
+                loadState.append is LoadState.Loading
+
+            // If we have an error, show a toast
+            getErrorStateOrNull(loadState)?.let {
+                Toast.makeText(requireContext(), it.error.toString(), Toast.LENGTH_LONG).show()
             }
         }
 
@@ -87,6 +76,13 @@ class ArticlesListFragment : Fragment(), ArticlesAdapter.OnItemClick {
                 articlesAdapter.submitData(it)
             }
         }
+    }
+
+    private fun getErrorStateOrNull(loadState: CombinedLoadStates) = when {
+        loadState.append is LoadState.Error -> loadState.append as LoadState.Error
+        loadState.prepend is LoadState.Error -> loadState.prepend as LoadState.Error
+        loadState.refresh is LoadState.Error -> loadState.refresh as LoadState.Error
+        else -> null
     }
 
     override fun itemClicked(item: ArticlesModel?) {
