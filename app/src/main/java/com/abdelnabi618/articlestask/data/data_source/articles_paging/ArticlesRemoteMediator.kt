@@ -50,7 +50,7 @@ class ArticlesRemoteMediator @Inject constructor(
                     val lastItem = state.lastItemOrNull()
                         ?: return MediatorResult.Success(endOfPaginationReached = true)
 
-                    lastItem.id
+                    lastItem.apiId
                 }
             }
 
