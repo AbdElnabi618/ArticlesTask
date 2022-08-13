@@ -7,7 +7,7 @@ import retrofit2.http.Query
 
 interface ArticlesApiCall {
 
-    @GET("posts?skip={skip}&limit={limit}")
+    @GET("posts")
     suspend fun getArticles(
         @Query("skip") skip: Int,
         @Query("limit") limit: Int
