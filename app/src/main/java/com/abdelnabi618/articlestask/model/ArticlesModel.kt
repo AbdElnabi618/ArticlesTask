@@ -16,7 +16,7 @@ data class ArticlesModel(
     @SerializedName("body")
     val body: String,
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "databaseId")
     val id: Int,
 
