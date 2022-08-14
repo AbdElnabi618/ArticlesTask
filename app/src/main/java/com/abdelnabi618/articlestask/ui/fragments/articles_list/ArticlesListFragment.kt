@@ -9,9 +9,11 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.abdelnabi618.articlestask.R
 import com.abdelnabi618.articlestask.databinding.FragmentArticlesListBinding
 import com.abdelnabi618.articlestask.model.ArticlesModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -35,7 +37,7 @@ class ArticlesListFragment : Fragment(), ArticlesAdapter.OnItemClick {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
+
         return articlesListBinding.root
     }
 
@@ -65,7 +67,6 @@ class ArticlesListFragment : Fragment(), ArticlesAdapter.OnItemClick {
             articlesListBinding.articlesFooterLoadingPb.isVisible =
                 loadState.append is LoadState.Loading
 
-            // If we have an error, show a toast
             getErrorStateOrNull(loadState)?.let {
                 Toast.makeText(requireContext(), it.error.toString(), Toast.LENGTH_LONG).show()
             }
@@ -86,7 +87,19 @@ class ArticlesListFragment : Fragment(), ArticlesAdapter.OnItemClick {
     }
 
     override fun itemClicked(item: ArticlesModel?) {
-        // todo open new fragment
+        if (item != null) {
+            findNavController().navigate(
+                ArticlesListFragmentDirections.actionArticlesListFragmentToArticleDetailsFragment(
+                    item.apiId
+                )
+            )
+        } else {
+            Toast.makeText(
+                requireContext(),
+                getString(R.string.msg_no_data_found),
+                Toast.LENGTH_SHORT
+            ).show()
+        }
     }
 
 

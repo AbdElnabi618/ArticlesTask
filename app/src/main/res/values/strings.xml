@@ -5,4 +5,5 @@
 
     <string name="bind_user_id" translatable="false">%d. User Id %d: </string>
     <string name="popular_articles">Popular Articles</string>
+    <string name="msg_no_data_found">No data fount in this row</string>
 </resources>
