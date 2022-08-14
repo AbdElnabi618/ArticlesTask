@@ -71,9 +71,8 @@ class ArticlesListFragment : Fragment(), ArticlesAdapter.OnItemClick {
 
         articlesListBinding.articleListFilterEt.doOnTextChanged { text, _, _, _ ->
             text?.let {
-                val articleId = it.toString().toInt()
-                if (articleId != 0){
-                    filterArticles(articleId)
+                if ( it.toString().isNotBlank() && it.toString().toInt() != 0){
+                    filterArticles(it.toString().toInt())
                 }else{
                     getAllArticles()
                 }
@@ -86,12 +85,17 @@ class ArticlesListFragment : Fragment(), ArticlesAdapter.OnItemClick {
         articlesAdapter.addLoadStateListener { loadState ->
 
             articlesListBinding.articlesCenterLoadingPb.isVisible =
-                loadState.refresh is LoadState.Loading
+                loadState.mediator?.refresh is LoadState.Loading
             articlesListBinding.articlesFooterLoadingPb.isVisible =
-                loadState.append is LoadState.Loading
+                loadState.mediator?.append is LoadState.Loading
 
             getErrorStateOrNull(loadState)?.let {
                 Toast.makeText(requireContext(), it.error.toString(), Toast.LENGTH_LONG).show()
+            }
+        }
+        lifecycleScope.launchWhenResumed {
+            articlesViewModel.articlesFlow.collectLatest {
+                articlesAdapter.submitData(it)
             }
         }
 
@@ -100,17 +104,13 @@ class ArticlesListFragment : Fragment(), ArticlesAdapter.OnItemClick {
 
     private fun getAllArticles() {
         lifecycleScope.launchWhenResumed {
-            articlesViewModel.getAllArticles().collectLatest {
-                articlesAdapter.submitData(it)
-            }
+            articlesViewModel.getAllArticles()
         }
     }
 
     private fun filterArticles(articleId: Int) {
         lifecycleScope.launchWhenResumed {
-            articlesViewModel.filterArticles(articleId).collectLatest {
-                articlesAdapter.submitData(it)
-            }
+            articlesViewModel.filterArticles(articleId)
         }
     }
 
