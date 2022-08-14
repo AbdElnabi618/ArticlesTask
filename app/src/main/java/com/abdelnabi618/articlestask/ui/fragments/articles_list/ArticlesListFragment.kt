@@ -18,7 +18,6 @@ import com.abdelnabi618.articlestask.databinding.FragmentArticlesListBinding
 import com.abdelnabi618.articlestask.model.ArticlesModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
@@ -49,13 +48,8 @@ class ArticlesListFragment : Fragment(), ArticlesAdapter.OnItemClick {
         initRecycleView()
         onEvent()
         observeData()
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
         getAllArticles()
     }
-
     private fun initRecycleView() {
         articlesListBinding.articlesListRv.apply {
             layoutManager = LinearLayoutManager(requireContext())
@@ -86,7 +80,7 @@ class ArticlesListFragment : Fragment(), ArticlesAdapter.OnItemClick {
                 Toast.makeText(requireContext(), it.error.toString(), Toast.LENGTH_LONG).show()
             }
         }
-        lifecycleScope.launchWhenResumed {
+        lifecycleScope.launchWhenCreated {
             articlesViewModel.articlesFlow.collectLatest {
                 articlesAdapter.submitData(it)
             }
@@ -94,7 +88,7 @@ class ArticlesListFragment : Fragment(), ArticlesAdapter.OnItemClick {
     }
 
     private fun getAllArticles() {
-        lifecycleScope.launch {
+        lifecycleScope.launchWhenCreated {
             articlesViewModel.getAllArticles()
         }
     }
