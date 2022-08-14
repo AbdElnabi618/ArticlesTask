@@ -12,6 +12,7 @@ import androidx.navigation.fragment.navArgs
 import com.abdelnabi618.articlestask.databinding.FragmentArticleDetailsBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ArticleDetailsFragment : Fragment() {
@@ -20,7 +21,7 @@ class ArticleDetailsFragment : Fragment() {
         navArgs<ArticleDetailsFragmentArgs>().value.articleId
     }
 
-    private val articleDetailsViewModel : ArticleDetailsViewModel by viewModels()
+    private val articleDetailsViewModel: ArticleDetailsViewModel by viewModels()
 
     private val articleDetailsFragmentBinding: FragmentArticleDetailsBinding by lazy {
         FragmentArticleDetailsBinding.inflate(layoutInflater)
@@ -39,15 +40,21 @@ class ArticleDetailsFragment : Fragment() {
 
         lifecycleScope.launchWhenResumed {
 
-            articleDetailsViewModel.loadingStateFlow.collectLatest {
-                articleDetailsFragmentBinding.articleDetailsLoadingPb.isVisible = it
+            launch {
+                articleDetailsViewModel.loadingStateFlow.collectLatest {
+                    articleDetailsFragmentBinding.articleDetailsLoadingPb.isVisible = it
+                }
             }
 
-            articleDetailsViewModel.articleStateFlow.collectLatest {
-                articleDetailsFragmentBinding.articleModel = it
+            launch {
+                articleDetailsViewModel.articleStateFlow.collectLatest {
+                    articleDetailsFragmentBinding.articleModel = it
+                }
             }
 
-            articleDetailsViewModel.getSingleArticle(articleId)
+            launch {
+                articleDetailsViewModel.getSingleArticle(articleId)
+            }
         }
 
         onEvent()
