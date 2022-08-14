@@ -53,6 +53,7 @@ class ArticlesListFragment : Fragment(), ArticlesAdapter.OnItemClick {
     private fun initRecycleView() {
         articlesListBinding.articlesListRv.apply {
             layoutManager = LinearLayoutManager(requireContext())
+            setHasFixedSize(true)
             adapter = articlesAdapter
         }
 
