@@ -2,6 +2,7 @@
 <resources>
     <color name="primer_babe_blue">#c2e8ff</color>
     <color name="primer_babe_blue_10_opacity">#1AC2E8FF</color>
+    <color name="primer_babe_blue_30_opacity">#4DC2E8FF</color>
     <color name="logo_color">#c2e8ff</color>
     <color name="light_gray">#f6f8fc</color>
     <color name="black">#FF000000</color>
