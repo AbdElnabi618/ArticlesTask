@@ -32,5 +32,9 @@ class ArticlesRepositoryImpl @Inject constructor(
         ).flow
     }
 
+    override suspend fun getSingleArticle(articleId: Int): ArticlesModel {
+        return articlesDao.getArticle(articleId)
+    }
+
 
 }
