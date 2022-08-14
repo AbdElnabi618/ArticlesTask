@@ -24,9 +24,4 @@ class ArticlesViewModel @Inject constructor(
         _articlesFlow.emitAll(articlesRepository.getArticles().cachedIn(viewModelScope))
     }
 
-
-    suspend fun filterArticles(articleId: Int) {
-        _articlesFlow.emitAll(articlesRepository.filterArticles(articleId).cachedIn(viewModelScope))
-    }
-
 }

@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
-import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -61,22 +60,9 @@ class ArticlesListFragment : Fragment(), ArticlesAdapter.OnItemClick {
 
     private fun onEvent() {
         articlesListBinding.articlesFilterImg.setOnClickListener {
-            if (articlesListBinding.articleListFilterEt.isVisible) {
-                articlesListBinding.articleListFilterEt.isVisible = false
-                getAllArticles()
-            } else {
-                articlesListBinding.articleListFilterEt.isVisible = true
-            }
-        }
-
-        articlesListBinding.articleListFilterEt.doOnTextChanged { text, _, _, _ ->
-            text?.let {
-                if ( it.toString().isNotBlank() && it.toString().toInt() != 0){
-                    filterArticles(it.toString().toInt())
-                }else{
-                    getAllArticles()
-                }
-            }
+            findNavController().navigate(
+                ArticlesListFragmentDirections.actionArticlesListFragmentToFilterArticlesFragment()
+            )
         }
     }
 
@@ -105,12 +91,6 @@ class ArticlesListFragment : Fragment(), ArticlesAdapter.OnItemClick {
     private fun getAllArticles() {
         lifecycleScope.launchWhenResumed {
             articlesViewModel.getAllArticles()
-        }
-    }
-
-    private fun filterArticles(articleId: Int) {
-        lifecycleScope.launchWhenResumed {
-            articlesViewModel.filterArticles(articleId)
         }
     }
 

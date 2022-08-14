@@ -8,4 +8,5 @@
     <string name="msg_no_data_found">No data fount in this row</string>
     <string name="tags">Tags:</string>
     <string name="enter_id">Enter ID</string>
+    <string name="filter">Filter</string>
 </resources>

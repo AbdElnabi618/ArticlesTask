@@ -23,6 +23,9 @@
         <action
             android:id="@+id/action_articlesListFragment_to_articleDetailsFragment"
             app:destination="@id/articleDetailsFragment" />
+        <action
+            android:id="@+id/action_articlesListFragment_to_filterArticlesFragment"
+            app:destination="@id/filterArticlesFragment" />
     </fragment>
     <fragment
         android:id="@+id/articleDetailsFragment"
@@ -31,5 +34,13 @@
         <argument
             android:name="articleId"
             app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/filterArticlesFragment"
+        android:name="com.abdelnabi618.articlestask.ui.fragments.filter_articles.FilterArticlesFragment"
+        android:label="FilterArticlesFragment" >
+        <action
+            android:id="@+id/action_filterArticlesFragment_to_articleDetailsFragment"
+            app:destination="@id/articleDetailsFragment" />
     </fragment>
 </navigation>
