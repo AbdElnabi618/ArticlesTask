@@ -18,4 +18,7 @@ class ArticlesViewModel @Inject constructor(
 
     suspend fun getAllArticles(): Flow<PagingData<ArticlesModel>> =
         articlesRepository.getArticles().cachedIn(viewModelScope)
+
+    suspend fun filterArticles(articleId: Int): Flow<PagingData<ArticlesModel>> =
+        articlesRepository.filterArticles(articleId).cachedIn(viewModelScope)
 }

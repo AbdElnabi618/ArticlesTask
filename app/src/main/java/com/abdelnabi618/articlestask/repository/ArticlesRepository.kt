@@ -8,5 +8,7 @@ interface ArticlesRepository {
 
     suspend fun getArticles(): Flow<PagingData<ArticlesModel>>
 
+    suspend fun filterArticles(articleId: Int): Flow<PagingData<ArticlesModel>>
+
     suspend fun getSingleArticle(articleId: Int): ArticlesModel
 }

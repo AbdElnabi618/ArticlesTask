@@ -18,6 +18,9 @@ interface ArticlesDao {
     suspend fun getArticle(id: Int): ArticlesModel
 
 
+    @Query("SELECT * FROM $ARTICLES_TABLE_NAME WHERE apiId LIKE :id")
+    fun filterArticles(id: Int): PagingSource<Int, ArticlesModel>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(articles: List<ArticlesModel>)
 

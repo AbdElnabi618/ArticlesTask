@@ -32,6 +32,20 @@ class ArticlesRepositoryImpl @Inject constructor(
         ).flow
     }
 
+    override suspend fun filterArticles(articleId: Int): Flow<PagingData<ArticlesModel>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = DATA_LIMIT,
+                enablePlaceholders = false,
+                initialLoadSize = DATA_LIMIT
+            ),
+            remoteMediator = articlesRemoteMediator,
+            pagingSourceFactory = {
+                articlesDao.filterArticles(articleId)
+            }, initialKey = DATA_SKIP_INIT
+        ).flow
+    }
+
     override suspend fun getSingleArticle(articleId: Int): ArticlesModel {
         return articlesDao.getArticle(articleId)
     }
