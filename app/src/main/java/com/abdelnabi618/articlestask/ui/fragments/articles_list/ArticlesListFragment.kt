@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -46,7 +47,7 @@ class ArticlesListFragment : Fragment(), ArticlesAdapter.OnItemClick {
         super.onViewCreated(view, savedInstanceState)
 
         initRecycleView()
-
+        onEvent()
         observeData()
     }
 
@@ -56,6 +57,28 @@ class ArticlesListFragment : Fragment(), ArticlesAdapter.OnItemClick {
             adapter = articlesAdapter
         }
 
+    }
+
+    private fun onEvent() {
+        articlesListBinding.articlesFilterImg.setOnClickListener {
+            if (articlesListBinding.articleListFilterEt.isVisible) {
+                articlesListBinding.articleListFilterEt.isVisible = false
+                getAllArticles()
+            } else {
+                articlesListBinding.articleListFilterEt.isVisible = true
+            }
+        }
+
+        articlesListBinding.articleListFilterEt.doOnTextChanged { text, _, _, _ ->
+            text?.let {
+                val articleId = it.toString().toInt()
+                if (articleId != 0){
+                    filterArticles(articleId)
+                }else{
+                    getAllArticles()
+                }
+            }
+        }
     }
 
     private fun observeData() {
@@ -72,8 +95,20 @@ class ArticlesListFragment : Fragment(), ArticlesAdapter.OnItemClick {
             }
         }
 
+        getAllArticles()
+    }
+
+    private fun getAllArticles() {
         lifecycleScope.launchWhenResumed {
             articlesViewModel.getAllArticles().collectLatest {
+                articlesAdapter.submitData(it)
+            }
+        }
+    }
+
+    private fun filterArticles(articleId: Int) {
+        lifecycleScope.launchWhenResumed {
+            articlesViewModel.filterArticles(articleId).collectLatest {
                 articlesAdapter.submitData(it)
             }
         }
